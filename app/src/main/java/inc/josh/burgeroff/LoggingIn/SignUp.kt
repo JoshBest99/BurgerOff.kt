@@ -1,12 +1,11 @@
-package inc.josh.burgeroff
+package inc.josh.burgeroff.LoggingIn
 
 import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Intent
-import android.graphics.drawable.BitmapDrawable
+import android.media.Rating
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
@@ -15,11 +14,10 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import java.util.*
-import android.opengl.ETC1.getHeight
-import android.opengl.ETC1.getWidth
-import android.graphics.Bitmap
-import android.graphics.Matrix
 import com.bumptech.glide.Glide
+import inc.josh.burgeroff.DataModels.Ratings
+import inc.josh.burgeroff.DataModels.User
+import inc.josh.burgeroff.R
 
 
 class SignUp : AppCompatActivity() {
@@ -40,7 +38,7 @@ class SignUp : AppCompatActivity() {
 
         backToLogin.setOnClickListener {
 
-            startActivity(Intent(this@SignUp,LogIn::class.java))
+            startActivity(Intent(this@SignUp, LogIn::class.java))
         }
 
         addPhotoButton.setOnClickListener {
@@ -131,7 +129,9 @@ class SignUp : AppCompatActivity() {
         val uid = FirebaseAuth.getInstance().uid ?: ""
         val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
 
-        val user = User(uid, nameEditText.text.toString(), profileImageUrl)
+        val ratings : Ratings = Ratings(0,0,0)
+
+        val user = User(uid, nameEditText.text.toString(), profileImageUrl, ratings)
 
         runOnUiThread {
             progressDialog?.cancel()
@@ -140,7 +140,7 @@ class SignUp : AppCompatActivity() {
         ref.setValue(user)
             .addOnSuccessListener {
                 Log.d(TAG,"User Saved")
-                startActivity(Intent(this@SignUp,LogIn::class.java))
+                startActivity(Intent(this@SignUp, LogIn::class.java))
             }
             .addOnFailureListener {
                 Log.d(TAG, "User Failed, ${it.message.toString()}")
@@ -148,4 +148,4 @@ class SignUp : AppCompatActivity() {
     }
 }
 
-class User(var uid: String, var username: String, var profileImageUrl: String)
+

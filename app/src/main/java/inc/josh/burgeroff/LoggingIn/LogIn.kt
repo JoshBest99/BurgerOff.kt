@@ -1,4 +1,4 @@
-package inc.josh.burgeroff
+package inc.josh.burgeroff.LoggingIn
 
 import android.app.ProgressDialog
 import android.content.Intent
@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import inc.josh.burgeroff.Voting.PageSelection
+import inc.josh.burgeroff.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -21,7 +23,7 @@ class LogIn : AppCompatActivity() {
         }
 
         signUp.setOnClickListener {
-            startActivity(Intent(this@LogIn,SignUp::class.java))
+            startActivity(Intent(this@LogIn, SignUp::class.java))
         }
     }
 
@@ -52,7 +54,7 @@ class LogIn : AppCompatActivity() {
                 return@addOnCompleteListener
             }
 
-            startActivity(Intent(this@LogIn,PageSelection::class.java))
+            startActivity(Intent(this@LogIn, PageSelection::class.java))
 
         }
             .addOnFailureListener {
