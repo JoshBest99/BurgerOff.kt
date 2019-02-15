@@ -2,14 +2,20 @@ package inc.josh.burgeroff.Voting
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.opengl.Visibility
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.gson.Gson
 import inc.josh.burgeroff.DataModels.User
 import inc.josh.burgeroff.R
+import kotlinx.android.synthetic.main.activity_voting_page.*
 import kotlinx.android.synthetic.main.user_item.view.*
 import java.util.*
 
@@ -32,12 +38,25 @@ class UserAdapter (val context : Context, val users: ArrayList<User>): RecyclerV
         holder.view.userName.text = user.username
         Glide.with(context).load(user.profileImageUrl).into(holder.view.circleImage)
 
+        if(user.uid == FirebaseAuth.getInstance().uid || user.ratings!!.ratedUids.contains(FirebaseAuth.getInstance().uid!!)){
+            holder.view.userName.setTextColor(Color.parseColor("#82BD08"))
+        } else {
+            holder.view.userName.setTextColor(Color.parseColor("#e00000"))
+        }
+
         holder.view.setOnClickListener {
-            val intent = Intent(context, VotingPage::class.java)
-            var gson: Gson = Gson()
-            var userData = gson.toJson(user)
-            intent.putExtra("userData", userData)
-            context.startActivity(intent)
+            if(user.uid == FirebaseAuth.getInstance().uid){
+                Toast.makeText(context, "You can't vote for yourself!", Toast.LENGTH_SHORT).show()
+            }  else if(user.ratings!!.ratedUids.contains(FirebaseAuth.getInstance().uid!!)){
+                Toast.makeText(context, "You've already voted for ${user.username}", Toast.LENGTH_SHORT).show()
+            } else {
+                val intent = Intent(context, VotingPage::class.java)
+                var gson: Gson = Gson()
+                var userData = gson.toJson(user)
+                intent.putExtra("userData", userData)
+                context.startActivity(intent)
+            }
+
         }
 
     }

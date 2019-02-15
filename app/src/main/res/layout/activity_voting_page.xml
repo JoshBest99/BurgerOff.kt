@@ -16,7 +16,7 @@ android:background="@color/colorPrimary">
                 app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent" android:background="@drawable/backbutton"/>
         <TextView
-                android:text="Vote for: Josh"
+                android:text="Vote for:"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/topText" android:layout_weight="1"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -52,7 +52,7 @@ android:background="@color/colorPrimary">
                             style="@android:style/Widget.Material.Light.SeekBar"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:max="5"
+                            android:max="50"
                             android:progress="0"
                             android:id="@+id/pattySeekBar" android:padding="5dp"/>
                 </LinearLayout>
@@ -75,7 +75,7 @@ android:background="@color/colorPrimary">
                             style="@android:style/Widget.Material.Light.SeekBar"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:max="5"
+                            android:max="40"
                             android:progress="0"
                             android:id="@+id/tasteSeekBar" android:padding="5dp"/>
                 </LinearLayout>
@@ -98,7 +98,7 @@ android:background="@color/colorPrimary">
                             style="@android:style/Widget.Material.Light.SeekBar"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:max="5"
+                            android:max="10"
                             android:progress="0"
                             android:id="@+id/looksSeekBar" android:padding="5dp"/>
                 </LinearLayout>

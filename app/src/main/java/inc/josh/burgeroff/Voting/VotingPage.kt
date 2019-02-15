@@ -3,7 +3,10 @@ package inc.josh.burgeroff.Voting
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.widget.SeekBar
+import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.gson.Gson
 import inc.josh.burgeroff.DataModels.User
@@ -21,7 +24,7 @@ class VotingPage : AppCompatActivity() {
 
         var gson : Gson = Gson()
         user = gson.fromJson(intent.getStringExtra("userData"), User::class.java)
-        setUi()
+        topText.text = "Voting for: ${user.username}"
 
         pattySeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
 
@@ -80,24 +83,13 @@ class VotingPage : AppCompatActivity() {
             ref.child("/appearance").setValue(looksSeekBar.progress + user.ratings!!.appearance)
             ref.child("/burgerTaste").setValue(tasteSeekBar.progress + user.ratings!!.burgerTaste)
             ref.child("/pattyTaste").setValue(pattySeekBar.progress + user.ratings!!.pattyTaste)
+            ref.child("/ratedUids").setValue(user.ratings!!.ratedUids + FirebaseAuth.getInstance().uid)
+
+            Toast.makeText(this@VotingPage, "You have voted for ${user.username}", Toast.LENGTH_SHORT)
+            startActivity(Intent(this@VotingPage, PageSelection::class.java))
         }
 
 
-        //add a list to their data of all the uid's that have voted for them to figure out wether some one has voted already.
-
-    }
-
-    private fun setUi(){
-        topText.text = "Voting for: ${user.username}"
-        if(user.ratings == null) return
-
-        pattySeekBar.progress = user.ratings!!.pattyTaste
-        tasteSeekBar.progress = user.ratings!!.burgerTaste
-        looksSeekBar.progress = user.ratings!!.appearance
-
-        pattyTitle.text = "Patty: ${user.ratings!!.pattyTaste}"
-        tasteTitle.text = "Taste: ${user.ratings!!.burgerTaste}"
-        looksTitle.text = "Looks: ${user.ratings!!.appearance}"
     }
 
 }

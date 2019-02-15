@@ -33,7 +33,12 @@ class SignUp : AppCompatActivity() {
         progressDialog = ProgressDialog(this)
 
         continueButton.setOnClickListener {
-            registerUser()
+            if(selectedPhotoUri != null){
+                registerUser()
+            } else {
+                Toast.makeText(this, "Please add a photo", Toast.LENGTH_SHORT).show()
+            }
+
         }
 
         backToLogin.setOnClickListener {
@@ -129,7 +134,7 @@ class SignUp : AppCompatActivity() {
         val uid = FirebaseAuth.getInstance().uid ?: ""
         val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
 
-        val ratings : Ratings = Ratings(0,0,0)
+        val ratings : Ratings = Ratings(0,0,0, "")
 
         val user = User(uid, nameEditText.text.toString(), profileImageUrl, ratings)
 

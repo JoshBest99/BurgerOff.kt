@@ -12,14 +12,28 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
         <TextView
-                android:text="User List"
+                android:text="Contestants"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/title" android:layout_weight="1"
+                android:layout_height="wrap_content" android:id="@+id/titleText" android:layout_weight="1"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="8dp" android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp"
                 app:layout_constraintTop_toTopOf="parent" android:layout_marginStart="8dp"
                 app:layout_constraintStart_toStartOf="parent" android:textSize="20sp" android:textColor="#ffffff"/>
+        <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp" app:srcCompat="@drawable/backbutton"
+                android:id="@+id/signOut" android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="8dp"/>
+        <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp" app:srcCompat="@drawable/refresh"
+                android:id="@+id/refresh" android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="8dp" android:layout_marginTop="8dp"
+                app:layout_constraintTop_toTopOf="parent"/>
     </android.support.constraint.ConstraintLayout>
     <android.support.v7.widget.RecyclerView
             android:layout_width="0dp"
