@@ -30,7 +30,7 @@ class VotingPage : AppCompatActivity() {
 
             override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
                 // Display the current progress of SeekBar
-                pattyTitle.text = "Patty: $i"
+            pattyTitle.text = "Patty Quality: $i"
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {
@@ -46,7 +46,7 @@ class VotingPage : AppCompatActivity() {
 
             override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
                 // Display the current progress of SeekBar
-                tasteTitle.text = "Taste: $i"
+                tasteTitle.text = "Overall Burger Taste: $i"
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {
@@ -62,7 +62,7 @@ class VotingPage : AppCompatActivity() {
 
             override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
                 // Display the current progress of SeekBar
-                looksTitle.text = "Looks: $i"
+                looksTitle.text = "Appearance: $i"
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {

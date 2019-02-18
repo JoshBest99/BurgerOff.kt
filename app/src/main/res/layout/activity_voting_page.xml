@@ -43,7 +43,7 @@ android:background="@color/colorPrimary">
                         android:layout_height="match_parent" android:padding="10dp" android:layout_margin="10dp"
                         android:id="@+id/lookLayout">
                     <TextView
-                            android:text="Patty: 0"
+                            android:text="Patty Quality: 0"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" android:id="@+id/pattyTitle"
                             android:textColor="#ffffff"
@@ -67,7 +67,7 @@ android:background="@color/colorPrimary">
                         android:layout_height="match_parent" android:padding="10dp" android:layout_margin="10dp"
                         android:id="@+id/tasteLayout">
                     <TextView
-                            android:text="Taste: 0"
+                            android:text="Overall Burger Taste: 0"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" android:id="@+id/tasteTitle" android:textSize="21sp"
                             android:textColor="#ffffff" android:textAllCaps="false"/>
@@ -89,7 +89,7 @@ android:background="@color/colorPrimary">
                         android:layout_height="match_parent" android:padding="10dp" android:layout_margin="10dp"
                         android:id="@+id/lookLayout">
                     <TextView
-                            android:text="Looks: 0"
+                            android:text="Appearance: 0"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" android:id="@+id/looksTitle"
                             android:textColor="#ffffff"

@@ -107,7 +107,7 @@
                     android:layout_marginStart="8dp" android:layout_marginTop="8dp"
                     app:layout_constraintTop_toTopOf="parent"/>
             <TextView
-                    android:text="Most Patty Points"
+                    android:text="Most Patty Quality Points"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/totalPattyTitle"
@@ -153,7 +153,7 @@
                     android:layout_marginStart="8dp" android:layout_marginTop="8dp"
                     app:layout_constraintTop_toTopOf="parent"/>
             <TextView
-                    android:text="Most Burger Taste Points"
+                    android:text="Most Overall Taste Points"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/totalOverallTitle"
