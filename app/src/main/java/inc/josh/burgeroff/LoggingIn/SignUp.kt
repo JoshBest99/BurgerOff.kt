@@ -2,8 +2,8 @@ package inc.josh.burgeroff.LoggingIn
 
 import android.app.Activity
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
-import android.media.Rating
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -83,7 +83,7 @@ class SignUp : AppCompatActivity() {
                 }
 
                 Log.d(TAG,"Auth Done, uploading image")
-                uploadImageToFirebase()
+                uploadImageToFirebase(email, password)
             }
             .addOnFailureListener {
                 runOnUiThread {
@@ -101,12 +101,12 @@ class SignUp : AppCompatActivity() {
 //            val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, selectedPhotoUri)
 //            circleImage.setImageBitmap(bitmap)
             addPhotoButton.alpha = 0f
-            Glide.with(this).load(selectedPhotoUri).into(circleImage)
+            Glide.with(this).load(selectedPhotoUri).into(iv_profile)
 
         }
     }
 
-    private fun uploadImageToFirebase(){
+    private fun uploadImageToFirebase(email: String, password: String){
         val filename = UUID.randomUUID().toString()
         val ref = FirebaseStorage.getInstance().getReference("/images/$filename")
 
@@ -117,7 +117,7 @@ class SignUp : AppCompatActivity() {
                 ref.downloadUrl.addOnSuccessListener {
 
                     Log.d(TAG,"Saving user")
-                    saveUserToDatabase(it.toString())
+                    saveUserToDatabase(it.toString(), email, password)
                 }
             }
             .addOnFailureListener {
@@ -130,13 +130,13 @@ class SignUp : AppCompatActivity() {
             }
     }
 
-    private fun saveUserToDatabase(profileImageUrl: String){
+    private fun saveUserToDatabase(profileImageUrl: String, email: String, password: String){
         val uid = FirebaseAuth.getInstance().uid ?: ""
         val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
 
-        val ratings : Ratings = Ratings(0,0,0, "")
+        val ratings = Ratings(0,0,0, "")
 
-        val user = User(uid, nameEditText.text.toString(), profileImageUrl, ratings)
+        val user = User(uid, nameEditText.text.toString(), profileImageUrl,"", ratings)
 
         runOnUiThread {
             progressDialog?.cancel()
@@ -145,6 +145,10 @@ class SignUp : AppCompatActivity() {
         ref.setValue(user)
             .addOnSuccessListener {
                 Log.d(TAG,"User Saved")
+                val editor = getSharedPreferences("MyPreferences", Context.MODE_PRIVATE).edit()
+                editor.putString("email", email)
+                editor.putString("password", password)
+                editor.apply()
                 startActivity(Intent(this@SignUp, LogIn::class.java))
             }
             .addOnFailureListener {

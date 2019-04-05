@@ -34,7 +34,7 @@ class AdminWinners : AppCompatActivity(){
 
         }
 
-        refresh.setOnClickListener {
+        tv_refresh.setOnClickListener {
             getUserList()
         }
 

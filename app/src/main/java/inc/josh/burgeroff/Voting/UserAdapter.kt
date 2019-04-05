@@ -3,7 +3,6 @@ package inc.josh.burgeroff.Voting
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.opengl.Visibility
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -11,11 +10,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.gson.Gson
 import inc.josh.burgeroff.DataModels.User
 import inc.josh.burgeroff.R
-import kotlinx.android.synthetic.main.activity_voting_page.*
 import kotlinx.android.synthetic.main.user_item.view.*
 import java.util.*
 
@@ -36,7 +33,7 @@ class UserAdapter (val context : Context, val users: ArrayList<User>): RecyclerV
         var user = users.get(position)
 
         holder.view.userName.text = user.username
-        Glide.with(context).load(user.profileImageUrl).into(holder.view.circleImage)
+        Glide.with(context).load(user.profileImageUrl).into(holder.view.iv_profile)
 
         if(user.uid == FirebaseAuth.getInstance().uid || user.ratings!!.ratedUids.contains(FirebaseAuth.getInstance().uid!!)){
             holder.view.userName.setTextColor(Color.parseColor("#00FF00"))

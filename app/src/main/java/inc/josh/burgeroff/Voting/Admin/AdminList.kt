@@ -26,13 +26,13 @@ class AdminList : AppCompatActivity(){
 
         getUserList()
 
-        signOut.setOnClickListener {
+        tv_profile.setOnClickListener {
 
             startActivity(Intent(this@AdminList, PageSelection::class.java))
 
         }
 
-        refresh.setOnClickListener {
+        tv_refresh.setOnClickListener {
             getUserList()
         }
 

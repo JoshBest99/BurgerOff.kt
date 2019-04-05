@@ -28,7 +28,7 @@ class AdminAdapter (val context : Context, val users: ArrayList<User>): Recycler
         var user = users.get(position)
 
         holder.view.userName.text = user.username
-        Glide.with(context).load(user.profileImageUrl).into(holder.view.circleImage)
+        Glide.with(context).load(user.profileImageUrl).into(holder.view.iv_profile)
 
         holder.view.totalPatty.text = "Total Patty: ${user.ratings!!.pattyTaste}"
         holder.view.totalTaste.text = "Total Taste: ${user.ratings!!.burgerTaste}"
