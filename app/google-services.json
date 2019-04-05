@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "291418563942",
+    "firebase_url": "https://burgeroff-85ffe.firebaseio.com",
+    "project_id": "burgeroff-85ffe",
+    "storage_bucket": "burgeroff-85ffe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:291418563942:android:95e996c5477a1c00",
+        "android_client_info": {
+          "package_name": "inc.josh.burgeroff"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "291418563942-8g6b6aae1kkk7vcdbkgg37pdqjrbvt30.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA57Fdizvyey-_57iqstLc9tza7ajFmWbw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
