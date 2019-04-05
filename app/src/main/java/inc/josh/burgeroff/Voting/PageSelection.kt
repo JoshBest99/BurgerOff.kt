@@ -1,5 +1,6 @@
 package inc.josh.burgeroff.Voting
 
+import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
@@ -12,6 +13,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.iid.FirebaseInstanceId
 import inc.josh.burgeroff.DataModels.User
 import inc.josh.burgeroff.LoggingIn.LogIn
 import inc.josh.burgeroff.R
@@ -20,7 +22,7 @@ import inc.josh.burgeroff.Voting.Admin.AdminWinners
 class PageSelection : AppCompatActivity(){
 
     private val context = this
-    private var adminEnabled = false;
+    private var adminEnabled = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +52,7 @@ class PageSelection : AppCompatActivity(){
                 startActivity(Intent(this@PageSelection, AdminWinners::class.java))
             }
         }
+
     }
 
     private fun getUserList(){
