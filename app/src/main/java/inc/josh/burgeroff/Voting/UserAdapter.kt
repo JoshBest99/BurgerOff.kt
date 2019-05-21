@@ -32,13 +32,13 @@ class UserAdapter (val context : Context, val users: ArrayList<User>): RecyclerV
 
         var user = users.get(position)
 
-        holder.view.userName.text = user.username
+        holder.view.tv_username.text = user.username
         Glide.with(context).load(user.profileImageUrl).into(holder.view.iv_profile)
 
         if(user.uid == FirebaseAuth.getInstance().uid || user.ratings!!.ratedUids.contains(FirebaseAuth.getInstance().uid!!)){
-            holder.view.userName.setTextColor(Color.parseColor("#00FF00"))
+            holder.view.tv_username.setTextColor(Color.parseColor("#00FF00"))
         } else {
-            holder.view.userName.setTextColor(Color.parseColor("#FF0000"))
+            holder.view.tv_username.setTextColor(Color.parseColor("#FF0000"))
         }
 
         holder.view.setOnClickListener {

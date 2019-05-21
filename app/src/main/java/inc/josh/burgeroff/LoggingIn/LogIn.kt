@@ -26,11 +26,11 @@ class LogIn : AppCompatActivity() {
         email = sharedPreferences.getString("email", "")
         password = sharedPreferences.getString("password", "")
 
-        continueButton.setOnClickListener {
+        btn_continue.setOnClickListener {
             logIn(sharedPreferences.edit())
         }
 
-        signUp.setOnClickListener {
+        tv_signup.setOnClickListener {
             startActivity(Intent(this@LogIn, SignUp::class.java))
         }
 
@@ -43,8 +43,8 @@ class LogIn : AppCompatActivity() {
         val progressDialog = ProgressDialog(this)
 
         if(email.equals("") || password.equals("")){
-            email = emailEditText.text.toString()
-            password = passwordEditText.text.toString()
+            email = et_email.text.toString()
+            password = et_password.text.toString()
 
         }
 

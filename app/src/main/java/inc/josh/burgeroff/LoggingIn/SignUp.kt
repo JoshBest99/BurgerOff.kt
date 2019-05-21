@@ -32,7 +32,7 @@ class SignUp : AppCompatActivity() {
         setContentView(R.layout.activity_sign_up)
         progressDialog = ProgressDialog(this)
 
-        continueButton.setOnClickListener {
+        btn_continue.setOnClickListener {
             if(selectedPhotoUri != null){
                 registerUser()
             } else {
@@ -41,12 +41,12 @@ class SignUp : AppCompatActivity() {
 
         }
 
-        backToLogin.setOnClickListener {
+        tv_back.setOnClickListener {
 
             startActivity(Intent(this@SignUp, LogIn::class.java))
         }
 
-        addPhotoButton.setOnClickListener {
+        btn_add_photo.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
             startActivityForResult(intent, 1337)
@@ -55,8 +55,8 @@ class SignUp : AppCompatActivity() {
     }
 
     private fun registerUser(){
-        val email = emailEditText.text.toString()
-        val password = passwordEditText.text.toString()
+        val email = et_email.text.toString()
+        val password = et_password.text.toString()
 
         runOnUiThread {
             progressDialog?.setMessage("Registering...")
@@ -100,7 +100,7 @@ class SignUp : AppCompatActivity() {
             selectedPhotoUri = data.data
 //            val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, selectedPhotoUri)
 //            circleImage.setImageBitmap(bitmap)
-            addPhotoButton.alpha = 0f
+            btn_add_photo.alpha = 0f
             Glide.with(this).load(selectedPhotoUri).into(iv_profile)
 
         }
@@ -136,7 +136,7 @@ class SignUp : AppCompatActivity() {
 
         val ratings = Ratings(0,0,0, "")
 
-        val user = User(uid, nameEditText.text.toString(), profileImageUrl,"", ratings)
+        val user = User(uid, et_name.text.toString(), profileImageUrl,"", ratings)
 
         runOnUiThread {
             progressDialog?.cancel()
