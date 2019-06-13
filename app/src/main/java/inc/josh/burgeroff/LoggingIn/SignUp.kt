@@ -9,16 +9,14 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import java.util.*
-import com.bumptech.glide.Glide
-import inc.josh.burgeroff.DataModels.Ratings
 import inc.josh.burgeroff.DataModels.User
 import inc.josh.burgeroff.R
-
 
 class SignUp : AppCompatActivity() {
 
@@ -134,9 +132,8 @@ class SignUp : AppCompatActivity() {
         val uid = FirebaseAuth.getInstance().uid ?: ""
         val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
 
-        val ratings = Ratings()
 
-        val user = User(uid, et_name.text.toString(), profileImageUrl,"", ratings)
+        val user = User(uid, et_name.text.toString(), profileImageUrl,"", null)
 
         runOnUiThread {
             progressDialog?.cancel()

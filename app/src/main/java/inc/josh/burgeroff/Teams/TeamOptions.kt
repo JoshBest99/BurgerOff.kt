@@ -1,9 +1,11 @@
 package inc.josh.burgeroff.Teams
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import inc.josh.burgeroff.R
+import inc.josh.burgeroff.Voting.PageSelection
 import kotlinx.android.synthetic.main.activity_team_options.*
 
 class TeamOptions: AppCompatActivity(){
@@ -20,8 +22,7 @@ class TeamOptions: AppCompatActivity(){
         }
 
         btn_cooking_no.setOnClickListener {
-            isCooking = false
-            changeTeamChoiceUI()
+            startActivity(Intent(this@TeamOptions, PageSelection::class.java))
         }
 
         btn_create_team.setOnClickListener {

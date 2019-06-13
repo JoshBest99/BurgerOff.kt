@@ -1,7 +1,6 @@
 package inc.josh.burgeroff.Voting
 
 import android.app.ProgressDialog
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -12,8 +11,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import inc.josh.burgeroff.DataModels.User
-import inc.josh.burgeroff.LoggingIn.LogIn
+import inc.josh.burgeroff.DataModels.Team
 import inc.josh.burgeroff.R
 import inc.josh.burgeroff.Voting.Admin.AdminWinners
 
@@ -28,7 +26,7 @@ class PageSelection : AppCompatActivity(){
 
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        getUserList()
+        getTeamList()
 
         tv_profile.setOnClickListener {
 
@@ -37,7 +35,7 @@ class PageSelection : AppCompatActivity(){
         }
 
         tv_refresh.setOnClickListener {
-            getUserList()
+            getTeamList()
         }
 
         titleText.setOnClickListener {
@@ -48,7 +46,7 @@ class PageSelection : AppCompatActivity(){
 
     }
 
-    private fun getUserList(){
+    private fun getTeamList(){
         val progressDialog : ProgressDialog = ProgressDialog(this)
         progressDialog.setMessage("Getting Contestants...")
 
@@ -56,8 +54,8 @@ class PageSelection : AppCompatActivity(){
             progressDialog.show()
         }
 
-        val ref = FirebaseDatabase.getInstance().getReference("/users")
-        var userList : ArrayList<User> = ArrayList()
+        val ref = FirebaseDatabase.getInstance().getReference("/teams")
+        var teamList : ArrayList<Team> = ArrayList()
 
         ref.addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
@@ -67,16 +65,16 @@ class PageSelection : AppCompatActivity(){
             override fun onDataChange(p0: DataSnapshot) {
                p0.children.forEach {
                    Log.d("MainAct", it.toString())
-                   val user = it.getValue(User::class.java)
-                   if(user != null){
-                       userList.add(user)
-                       if(user.username.equals("adminready")) adminEnabled = true
+                   val team = it.getValue(Team::class.java)
+                   if(team != null){
+                       teamList.add(team)
+                       //if(user.username.equals("adminready")) adminEnabled = true
                    }
                }
 
                 runOnUiThread {
                     progressDialog.cancel()
-                    recyclerView.adapter = UserAdapter(context, userList)
+                    recyclerView.adapter = TeamListAdapter(context, teamList)
                 }
             }
         })

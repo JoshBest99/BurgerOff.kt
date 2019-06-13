@@ -8,17 +8,17 @@ class Controller{
 
         var endUser: User = User()
 
-        for ((index, user: User) in users.withIndex()){
-
-            if(index == 0){
-                endUser = user
-            } else {
-                if((user.ratings!!.appearance!! + user.ratings!!.pattyTaste!! + user.ratings!!.burgerTaste!!)
-                    > (endUser.ratings!!.appearance!! + endUser.ratings!!.pattyTaste!! + endUser.ratings!!.burgerTaste!!)){
-                    endUser = user
-                }
-            }
-        }
+//        for ((index, user: User) in users.withIndex()){
+//
+//            if(index == 0){
+//                endUser = user
+//            } else {
+//                if((user.ratings!!.appearance!! + user.ratings!!.pattyTaste!! + user.ratings!!.burgerTaste!!)
+//                    > (endUser.ratings!!.appearance!! + endUser.ratings!!.pattyTaste!! + endUser.ratings!!.burgerTaste!!)){
+//                    endUser = user
+//                }
+//            }
+//        }
 
         return endUser
     }
@@ -27,16 +27,16 @@ class Controller{
 
         var endUser: User = User()
 
-        for ((index, user: User) in users.withIndex()){
-
-            if(index == 0){
-                endUser = user
-            } else {
-                if(user.ratings!!.pattyTaste!! > endUser.ratings!!.pattyTaste!!){
-                    endUser = user
-                }
-            }
-        }
+//        for ((index, user: User) in users.withIndex()){
+//
+//            if(index == 0){
+//                endUser = user
+//            } else {
+//                if(user.ratings!!.pattyTaste!! > endUser.ratings!!.pattyTaste!!){
+//                    endUser = user
+//                }
+//            }
+//        }
 
         return endUser
     }
@@ -44,17 +44,17 @@ class Controller{
     fun getTopTotalBurger(users : ArrayList<User>): User{
 
         var endUser: User = User()
-
-        for ((index, user: User) in users.withIndex()){
-
-            if(index == 0){
-                endUser = user
-            } else {
-                if(user.ratings!!.burgerTaste!! > endUser.ratings!!.burgerTaste!!){
-                    endUser = user
-                }
-            }
-        }
+//
+//        for ((index, user: User) in users.withIndex()){
+//
+//            if(index == 0){
+//                endUser = user
+//            } else {
+//                if(user.ratings!!.burgerTaste!! > endUser.ratings!!.burgerTaste!!){
+//                    endUser = user
+//                }
+//            }
+//        }
 
         return endUser
     }
@@ -63,16 +63,16 @@ class Controller{
 
         var endUser: User = User()
 
-        for ((index, user: User) in users.withIndex()){
-
-            if(index == 0){
-                endUser = user
-            } else {
-                if(user.ratings!!.appearance!! > endUser.ratings!!.appearance!!){
-                    endUser = user
-                }
-            }
-        }
+//        for ((index, user: User) in users.withIndex()){
+//
+//            if(index == 0){
+//                endUser = user
+//            } else {
+//                if(user.ratings!!.appearance!! > endUser.ratings!!.appearance!!){
+//                    endUser = user
+//                }
+//            }
+//        }
 
         return endUser
     }

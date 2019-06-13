@@ -88,22 +88,22 @@ class AdminWinners : AppCompatActivity(){
     }
 
     private fun totalPointsUI(user: User){
-        totalPointWinnerName.text = user.username
-        totalPointWinnerAmount.text = "Points: ${user.ratings!!.appearance!! + user.ratings!!.pattyTaste!! + user.ratings!!.burgerTaste!!}"
+//        totalPointWinnerName.text = user.username
+//        totalPointWinnerAmount.text = "Points: ${user.ratings!!.appearance!! + user.ratings!!.pattyTaste!! + user.ratings!!.burgerTaste!!}"
     }
 
     private fun totalPattyUI(user: User){
-        totalPattyWinnerName.text = user.username
-        totalPattyWinnerAmount.text = "Points: ${user.ratings!!.pattyTaste}"
+//        totalPattyWinnerName.text = user.username
+//        totalPattyWinnerAmount.text = "Points: ${user.ratings!!.pattyTaste}"
     }
 
     private  fun totalBurgerUI(user: User){
-        totalOverallWinnerName.text = user.username
-        totalOverallWinnerAmount.text = "Points: ${user.ratings!!.burgerTaste}"
+//        totalOverallWinnerName.text = user.username
+//        totalOverallWinnerAmount.text = "Points: ${user.ratings!!.burgerTaste}"
     }
 
     private fun totalAppearanceUI(user: User){
-        totalAppearanceWinnerName.text = user.username
-        totalAppearanceWinnerAmount.text = "Points: ${user.ratings!!.appearance}"
+//        totalAppearanceWinnerName.text = user.username
+//        totalAppearanceWinnerAmount.text = "Points: ${user.ratings!!.appearance}"
     }
 }

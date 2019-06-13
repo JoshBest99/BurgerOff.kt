@@ -74,7 +74,9 @@ class LogIn : AppCompatActivity() {
             editor.putString("email", email)
             editor.putString("password", password)
             editor.apply()
-            startActivity(Intent(this@LogIn, PageSelection::class.java))
+
+            startActivity(Intent(this@LogIn, TeamOptions::class.java))
+            //startActivity(Intent(this@LogIn, PageSelection::class.java))
 
         }
             .addOnFailureListener {

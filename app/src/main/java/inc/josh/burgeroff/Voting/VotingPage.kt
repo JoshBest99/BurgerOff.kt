@@ -14,7 +14,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
-import inc.josh.burgeroff.DataModels.Ratings
 import inc.josh.burgeroff.DataModels.Score
 import inc.josh.burgeroff.DataModels.User
 import inc.josh.burgeroff.LoggingIn.SignUp
@@ -103,8 +102,8 @@ class VotingPage : AppCompatActivity() {
             }
 
             override fun onDataChange(p0: DataSnapshot) {
-                Log.d("VOTINGPAGE", p0.value.toString())
-                user.ratings = gson.fromJson(p0.value.toString(), Ratings::class.java)
+//                Log.d("VOTINGPAGE", p0.value.toString())
+//                user.ratings = gson.fromJson(p0.value.toString(), Ratings::class.java)
             }
         })
 
@@ -112,17 +111,17 @@ class VotingPage : AppCompatActivity() {
     }
 
     private fun postVotes(){
-        val ref = FirebaseDatabase.getInstance().getReference("/users/${user.uid}").child("/ratings")
-        ref.child("/appearance").setValue(looksSeekBar.progress + user.ratings!!.appearance!!)
-        ref.child("/burgerTaste").setValue(tasteSeekBar.progress + user.ratings!!.burgerTaste!!)
-        ref.child("/pattyTaste").setValue(pattySeekBar.progress + user.ratings!!.pattyTaste!!)
-        ref.child("/ratedUids").setValue(user.ratings!!.ratedUids + FirebaseAuth.getInstance().uid)
-
-        val currentUserRef = FirebaseDatabase.getInstance().getReference("/users/${FirebaseAuth.getInstance().uid}").child("/ratings/ratedScores/${user.username}")
-        currentUserRef.setValue(Score("${looksSeekBar.progress}/10", "${tasteSeekBar.progress}/40", "${pattySeekBar.progress}/50"))
-
-        Toast.makeText(this@VotingPage, "You have voted for ${user.username}", Toast.LENGTH_SHORT)
-        startActivity(Intent(this@VotingPage, PageSelection::class.java))
+//        val ref = FirebaseDatabase.getInstance().getReference("/users/${user.uid}").child("/ratings")
+//        ref.child("/appearance").setValue(looksSeekBar.progress + user.ratings!!.appearance!!)
+//        ref.child("/burgerTaste").setValue(tasteSeekBar.progress + user.ratings!!.burgerTaste!!)
+//        ref.child("/pattyTaste").setValue(pattySeekBar.progress + user.ratings!!.pattyTaste!!)
+//        ref.child("/ratedUids").setValue(user.ratings!!.ratedUids + FirebaseAuth.getInstance().uid)
+//
+//        val currentUserRef = FirebaseDatabase.getInstance().getReference("/users/${FirebaseAuth.getInstance().uid}").child("/ratings/ratedScores/${user.username}")
+//        currentUserRef.setValue(Score("${looksSeekBar.progress}/10", "${tasteSeekBar.progress}/40", "${pattySeekBar.progress}/50"))
+//
+//        Toast.makeText(this@VotingPage, "You have voted for ${user.username}", Toast.LENGTH_SHORT)
+//        startActivity(Intent(this@VotingPage, PageSelection::class.java))
     }
 
 }

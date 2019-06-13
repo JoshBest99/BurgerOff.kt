@@ -16,7 +16,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.gson.Gson
-import inc.josh.burgeroff.DataModels.Ratings
 import inc.josh.burgeroff.DataModels.User
 import inc.josh.burgeroff.LoggingIn.LogIn
 import inc.josh.burgeroff.R
