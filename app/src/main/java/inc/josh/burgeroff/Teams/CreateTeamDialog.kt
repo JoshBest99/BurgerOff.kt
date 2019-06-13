@@ -18,14 +18,16 @@ import kotlinx.android.synthetic.main.dialog_create_team.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-class CreateTeamDialog (context: Context) : Dialog(context){
+class CreateTeamDialog (context: Context, private val currentUser: User) : Dialog(context){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dialog_create_team)
 
         btn_create.setOnClickListener {
-            getCurrentUser()
+            if(et_teamname.text.trim().isNotEmpty()) {
+                createTeam(currentUser)
+            }
         }
 
     }
@@ -61,24 +63,5 @@ class CreateTeamDialog (context: Context) : Dialog(context){
             }
 
     }
-
-    private fun getCurrentUser(){
-
-        val ref = FirebaseDatabase.getInstance().getReference("/users").child("/${FirebaseAuth.getInstance().uid}")
-        var user : User? = null
-
-        ref.addListenerForSingleValueEvent(object: ValueEventListener {
-            override fun onCancelled(p0: DatabaseError) {
-
-            }
-
-            override fun onDataChange(p0: DataSnapshot) {
-                user = p0.getValue(User::class.java)
-                createTeam(user!!)
-            }
-        })
-
-    }
-
 
 }
