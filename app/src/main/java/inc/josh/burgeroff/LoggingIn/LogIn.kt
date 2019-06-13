@@ -10,9 +10,8 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import inc.josh.burgeroff.Voting.PageSelection
 import inc.josh.burgeroff.R
+import inc.josh.burgeroff.Teams.TeamOptions
 import kotlinx.android.synthetic.main.activity_main.*
-
-
 
 class LogIn : AppCompatActivity() {
 
@@ -37,6 +36,10 @@ class LogIn : AppCompatActivity() {
         if(!email.equals("") && !password.equals("")){
             logIn(sharedPreferences.edit())
         }
+
+
+
+        startActivity(Intent(this@LogIn, TeamOptions::class.java))
     }
 
     private fun logIn(editor: SharedPreferences.Editor){

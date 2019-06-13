@@ -11,7 +11,7 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Welcome to the burger Off!"
+            android:text="Welcome to the Burger Off!"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginTop="8dp" android:id="@+id/tv_welcome"
