@@ -10,6 +10,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import inc.josh.burgeroff.DataModels.Team
 import inc.josh.burgeroff.DataModels.User
 import inc.josh.burgeroff.R
 import inc.josh.burgeroff.Voting.PageSelection
@@ -31,7 +32,7 @@ class TeamOptions: AppCompatActivity(){
         }
 
         btn_cooking_no.setOnClickListener {
-            startActivity(Intent(this@TeamOptions, PageSelection::class.java))
+            joinNoTeam(user)
         }
 
         btn_create_team.setOnClickListener {
@@ -73,5 +74,21 @@ class TeamOptions: AppCompatActivity(){
         })
     }
 
+    private fun joinNoTeam(user: User){
+
+        val ref = FirebaseDatabase.getInstance().getReference("/users/${user.uid}/team")
+        val team = Team("No Team", null, null, null, "")
+
+        ref.setValue(team)
+
+            .addOnSuccessListener {
+                startActivity(Intent(this@TeamOptions, PageSelection::class.java))
+            }
+            .addOnFailureListener {
+
+            }
 
     }
+
+
+}
