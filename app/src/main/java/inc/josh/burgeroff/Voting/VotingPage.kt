@@ -15,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
 import inc.josh.burgeroff.DataModels.Score
+import inc.josh.burgeroff.DataModels.Team
 import inc.josh.burgeroff.DataModels.User
 import inc.josh.burgeroff.LoggingIn.SignUp
 import inc.josh.burgeroff.R
@@ -23,16 +24,13 @@ import kotlinx.android.synthetic.main.activity_voting_page.*
 
 class VotingPage : AppCompatActivity() {
 
-    private var user : User = User(null, null, null, null, null)
-    private lateinit var gson : Gson
+    private lateinit var team : Team
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_voting_page)
-
-        gson = Gson()
-        user = gson.fromJson(intent.getStringExtra("userData"), User::class.java)
-        topText.text = "Voting for: ${user.username}"
+        team = intent.getSerializableExtra("team") as Team
+        topText.text = "Voting for: ${team.name}"
 
         pattySeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
 
@@ -94,7 +92,7 @@ class VotingPage : AppCompatActivity() {
     }
 
     private fun getUpdatedVotes(){
-        val ref = FirebaseDatabase.getInstance().getReference("/users").child("/${user.uid}").child("/ratings")
+        val ref = FirebaseDatabase.getInstance().getReference("/teams/${team.uid}/score")
 
         ref.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
@@ -102,8 +100,8 @@ class VotingPage : AppCompatActivity() {
             }
 
             override fun onDataChange(p0: DataSnapshot) {
-//                Log.d("VOTINGPAGE", p0.value.toString())
-//                user.ratings = gson.fromJson(p0.value.toString(), Ratings::class.java)
+                Log.d("VOTINGPAGE", p0.value.toString())
+                team.score = Gson().fromJson(p0.value.toString(), Score::class.java)
             }
         })
 
@@ -111,17 +109,17 @@ class VotingPage : AppCompatActivity() {
     }
 
     private fun postVotes(){
-//        val ref = FirebaseDatabase.getInstance().getReference("/users/${user.uid}").child("/ratings")
-//        ref.child("/appearance").setValue(looksSeekBar.progress + user.ratings!!.appearance!!)
-//        ref.child("/burgerTaste").setValue(tasteSeekBar.progress + user.ratings!!.burgerTaste!!)
-//        ref.child("/pattyTaste").setValue(pattySeekBar.progress + user.ratings!!.pattyTaste!!)
-//        ref.child("/ratedUids").setValue(user.ratings!!.ratedUids + FirebaseAuth.getInstance().uid)
-//
-//        val currentUserRef = FirebaseDatabase.getInstance().getReference("/users/${FirebaseAuth.getInstance().uid}").child("/ratings/ratedScores/${user.username}")
-//        currentUserRef.setValue(Score("${looksSeekBar.progress}/10", "${tasteSeekBar.progress}/40", "${pattySeekBar.progress}/50"))
-//
-//        Toast.makeText(this@VotingPage, "You have voted for ${user.username}", Toast.LENGTH_SHORT)
-//        startActivity(Intent(this@VotingPage, PageSelection::class.java))
+        val ref = FirebaseDatabase.getInstance().getReference("/teams/${team.uid}")
+        ref.child("/score/appearance").setValue((looksSeekBar.progress + team.score!!.appearance!!.toInt()).toString())
+        ref.child("/score/burgerTaste").setValue((tasteSeekBar.progress + team.score!!.burgerTaste!!.toInt()).toString())
+        ref.child("/score/pattyTaste").setValue((pattySeekBar.progress + team.score!!.pattyTaste!!.toInt()).toString())
+        ref.child("/voteesUids").setValue(team.voteesUids + FirebaseAuth.getInstance().uid)
+
+        val currentUserRef = FirebaseDatabase.getInstance().getReference("/users/${FirebaseAuth.getInstance().uid}").child("/ratings/ratedScores/${team.name}")
+        currentUserRef.setValue(Score("${looksSeekBar.progress}/10", "${tasteSeekBar.progress}/40", "${pattySeekBar.progress}/50"))
+
+        Toast.makeText(this@VotingPage, "You have voted for ${team.name}", Toast.LENGTH_SHORT)
+        startActivity(Intent(this@VotingPage, PageSelection::class.java))
     }
 
 }

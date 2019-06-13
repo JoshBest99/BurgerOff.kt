@@ -79,8 +79,5 @@ class PageSelection : AppCompatActivity(){
             }
         })
 
-
-
-
     }
 }

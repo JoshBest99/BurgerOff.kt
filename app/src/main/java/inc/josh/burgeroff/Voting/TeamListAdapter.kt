@@ -43,18 +43,14 @@ class TeamListAdapter (val context : Context, val teamList: ArrayList<Team>): Re
         }
 
         if(canVoteForThisTeam(team, false)){
-            holder.view.tv_username.setTextColor(Color.parseColor("#00FF00"))
-        } else {
             holder.view.tv_username.setTextColor(Color.parseColor("#FF0000"))
+        } else {
+            holder.view.tv_username.setTextColor(Color.parseColor("#00FF00"))
         }
 
         holder.view.setOnClickListener {
             if(canVoteForThisTeam(team,true)){
-//                val intent = Intent(context, VotingPage::class.java)
-//                var gson: Gson = Gson()
-//                var userData = gson.toJson(team)
-//                intent.putExtra("userData", userData)
-//                context.startActivity(intent)
+                context.startActivity(Intent(context, VotingPage::class.java).putExtra("team", team))
             }
 
         }

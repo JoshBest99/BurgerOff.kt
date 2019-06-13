@@ -39,6 +39,21 @@ class CreateTeamDialog (context: Context) : Dialog(context){
         ref.setValue(team)
 
             .addOnSuccessListener {
+                updateTeam(user, team)
+            }
+            .addOnFailureListener {
+
+            }
+
+    }
+
+    private fun updateTeam(user: User, team : Team){
+
+        val ref = FirebaseDatabase.getInstance().getReference("/users/${user.uid}/team")
+
+        ref.setValue(team)
+
+            .addOnSuccessListener {
                 context.startActivity(Intent(context, PageSelection::class.java))
             }
             .addOnFailureListener {

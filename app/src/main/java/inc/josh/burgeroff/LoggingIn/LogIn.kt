@@ -8,6 +8,11 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import inc.josh.burgeroff.DataModels.User
 import inc.josh.burgeroff.Voting.PageSelection
 import inc.josh.burgeroff.R
 import inc.josh.burgeroff.Teams.TeamOptions
@@ -63,9 +68,6 @@ class LogIn : AppCompatActivity() {
         }
 
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener {
-            runOnUiThread {
-                progressDialog.cancel()
-            }
             if(!it.isSuccessful) {
                 Toast.makeText(this,"Unsuccessful $it", Toast.LENGTH_LONG).show()
                 return@addOnCompleteListener
@@ -75,8 +77,7 @@ class LogIn : AppCompatActivity() {
             editor.putString("password", password)
             editor.apply()
 
-            startActivity(Intent(this@LogIn, TeamOptions::class.java))
-            //startActivity(Intent(this@LogIn, PageSelection::class.java))
+            getCurrentUser(progressDialog)
 
         }
             .addOnFailureListener {
@@ -85,5 +86,33 @@ class LogIn : AppCompatActivity() {
                 }
                 Toast.makeText(this,"${it.message}", Toast.LENGTH_LONG).show()
             }
+    }
+
+    private fun getCurrentUser(progressDialog: ProgressDialog){
+
+        val ref = FirebaseDatabase.getInstance().getReference("/users").child("/${FirebaseAuth.getInstance().uid}")
+        var user : User? = null
+
+        ref.addListenerForSingleValueEvent(object: ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+                runOnUiThread {
+                    progressDialog.cancel()
+                }
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                runOnUiThread {
+                    progressDialog.cancel()
+                }
+
+                user = p0.getValue(User::class.java)
+                if(user!!.team == null){
+                    startActivity(Intent(this@LogIn, TeamOptions::class.java))
+                } else {
+                    startActivity(Intent(this@LogIn, PageSelection::class.java))
+                }
+            }
+        })
+
     }
 }
