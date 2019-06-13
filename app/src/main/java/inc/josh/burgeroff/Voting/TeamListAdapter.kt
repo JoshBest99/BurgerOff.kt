@@ -9,12 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
-import com.google.gson.Gson
 import inc.josh.burgeroff.DataModels.Team
-import inc.josh.burgeroff.R
 import inc.josh.burgeroff.UIViewController
 import kotlinx.android.synthetic.main.user_item.view.*
 import java.util.*
+import android.widget.LinearLayout
+import inc.josh.burgeroff.R
 
 class TeamListAdapter (val context : Context, val teamList: ArrayList<Team>): RecyclerView.Adapter<UserViewHolder>(){
 
@@ -37,9 +37,19 @@ class TeamListAdapter (val context : Context, val teamList: ArrayList<Team>): Re
         holder.view.tv_username.text = team.name
 
         Glide.with(context).load(team.members!![0].profileImageUrl).into(holder.view.iv_profile)
+
         if(team.members!!.size == 2){
+//
+//            val scale = context.resources.displayMetrics.density
+//
+//            val layoutParams = LinearLayout.LayoutParams((35 * scale).toInt(), (35 * scale).toInt())
+//            holder.view.iv_profile.layoutParams = layoutParams
+//            holder.view.iv_profile_two.layoutParams = layoutParams
+
             holder.view.iv_profile_two.visibility = View.VISIBLE
+
             Glide.with(context).load(team.members!![1].profileImageUrl).into(holder.view.iv_profile_two)
+
         }
 
         if(canVoteForThisTeam(team, false)){

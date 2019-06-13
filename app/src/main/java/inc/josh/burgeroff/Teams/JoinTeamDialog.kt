@@ -43,7 +43,12 @@ class JoinTeamDialog(context: Context, val currentUser: User) : Dialog(context){
             override fun onDataChange(p0: DataSnapshot) {
                 p0.children.forEach {
                     val team = it.getValue(Team::class.java)
-                    teamList.add(team!!)
+                    if(team!!.members!!.size != 2){
+
+                        teamList.add(team)
+
+                    }
+
                     rv_vertical.adapter = JoinTeamAdapter(context, teamList, currentUser)
                 }
 
