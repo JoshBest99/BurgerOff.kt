@@ -37,9 +37,7 @@ class LogIn : AppCompatActivity() {
             logIn(sharedPreferences.edit())
         }
 
-
-
-        startActivity(Intent(this@LogIn, TeamOptions::class.java))
+        //startActivity(Intent(this@LogIn, TeamOptions::class.java))
     }
 
     private fun logIn(editor: SharedPreferences.Editor){

@@ -134,7 +134,7 @@ class SignUp : AppCompatActivity() {
         val uid = FirebaseAuth.getInstance().uid ?: ""
         val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
 
-        val ratings = Ratings(0,0,0, "")
+        val ratings = Ratings()
 
         val user = User(uid, et_name.text.toString(), profileImageUrl,"", ratings)
 

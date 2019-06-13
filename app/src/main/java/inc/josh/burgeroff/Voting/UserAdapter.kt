@@ -35,7 +35,7 @@ class UserAdapter (val context : Context, val users: ArrayList<User>): RecyclerV
         holder.view.tv_username.text = user.username
         Glide.with(context).load(user.profileImageUrl).into(holder.view.iv_profile)
 
-        if(user.uid == FirebaseAuth.getInstance().uid || user.ratings!!.ratedUids.contains(FirebaseAuth.getInstance().uid!!)){
+        if(user.uid == FirebaseAuth.getInstance().uid || user.ratings!!.ratedUids!!.contains(FirebaseAuth.getInstance().uid!!)){
             holder.view.tv_username.setTextColor(Color.parseColor("#00FF00"))
         } else {
             holder.view.tv_username.setTextColor(Color.parseColor("#FF0000"))
@@ -44,7 +44,7 @@ class UserAdapter (val context : Context, val users: ArrayList<User>): RecyclerV
         holder.view.setOnClickListener {
             if(user.uid == FirebaseAuth.getInstance().uid){
                 Toast.makeText(context, "You can't vote for yourself!", Toast.LENGTH_SHORT).show()
-            }  else if(user.ratings!!.ratedUids.contains(FirebaseAuth.getInstance().uid!!)){
+            }  else if(user.ratings!!.ratedUids!!.contains(FirebaseAuth.getInstance().uid!!)){
                 Toast.makeText(context, "You've already voted for ${user.username}", Toast.LENGTH_SHORT).show()
             } else {
                 val intent = Intent(context, VotingPage::class.java)

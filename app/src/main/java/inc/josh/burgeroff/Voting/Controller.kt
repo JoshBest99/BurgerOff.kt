@@ -13,8 +13,8 @@ class Controller{
             if(index == 0){
                 endUser = user
             } else {
-                if((user.ratings!!.appearance + user.ratings!!.pattyTaste + user.ratings!!.burgerTaste)
-                    > (endUser.ratings!!.appearance + endUser.ratings!!.pattyTaste + endUser.ratings!!.burgerTaste)){
+                if((user.ratings!!.appearance!! + user.ratings!!.pattyTaste!! + user.ratings!!.burgerTaste!!)
+                    > (endUser.ratings!!.appearance!! + endUser.ratings!!.pattyTaste!! + endUser.ratings!!.burgerTaste!!)){
                     endUser = user
                 }
             }
@@ -32,7 +32,7 @@ class Controller{
             if(index == 0){
                 endUser = user
             } else {
-                if(user.ratings!!.pattyTaste > endUser.ratings!!.pattyTaste){
+                if(user.ratings!!.pattyTaste!! > endUser.ratings!!.pattyTaste!!){
                     endUser = user
                 }
             }
@@ -50,7 +50,7 @@ class Controller{
             if(index == 0){
                 endUser = user
             } else {
-                if(user.ratings!!.burgerTaste > endUser.ratings!!.burgerTaste){
+                if(user.ratings!!.burgerTaste!! > endUser.ratings!!.burgerTaste!!){
                     endUser = user
                 }
             }
@@ -68,7 +68,7 @@ class Controller{
             if(index == 0){
                 endUser = user
             } else {
-                if(user.ratings!!.appearance > endUser.ratings!!.appearance){
+                if(user.ratings!!.appearance!! > endUser.ratings!!.appearance!!){
                     endUser = user
                 }
             }

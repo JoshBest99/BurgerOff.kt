@@ -89,7 +89,7 @@ class AdminWinners : AppCompatActivity(){
 
     private fun totalPointsUI(user: User){
         totalPointWinnerName.text = user.username
-        totalPointWinnerAmount.text = "Points: ${user.ratings!!.appearance + user.ratings!!.pattyTaste + user.ratings!!.burgerTaste}"
+        totalPointWinnerAmount.text = "Points: ${user.ratings!!.appearance!! + user.ratings!!.pattyTaste!! + user.ratings!!.burgerTaste!!}"
     }
 
     private fun totalPattyUI(user: User){

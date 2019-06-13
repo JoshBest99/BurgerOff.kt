@@ -33,7 +33,7 @@ class AdminAdapter (val context : Context, val users: ArrayList<User>): Recycler
         holder.view.tv_patty.text = "Total Patty: ${user.ratings!!.pattyTaste}"
         holder.view.tv_taste.text = "Total Taste: ${user.ratings!!.burgerTaste}"
         holder.view.tv_looks.text = "Total Appearance ${user.ratings!!.appearance.toString()}"
-        holder.view.tv_points.text = "Total Points ${user.ratings!!.appearance + user.ratings!!.burgerTaste + user.ratings!!.pattyTaste}"
+        holder.view.tv_points.text = "Total Points ${user.ratings!!.appearance!! + user.ratings!!.burgerTaste!! + user.ratings!!.pattyTaste!!}"
     }
 
 }
