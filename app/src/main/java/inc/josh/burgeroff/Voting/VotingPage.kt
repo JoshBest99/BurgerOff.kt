@@ -118,8 +118,28 @@ class VotingPage : AppCompatActivity() {
         val currentUserRef = FirebaseDatabase.getInstance().getReference("/users/${FirebaseAuth.getInstance().uid}").child("/ratings/ratedScores/${team.name}")
         currentUserRef.setValue(Score("${looksSeekBar.progress}/10", "${tasteSeekBar.progress}/40", "${pattySeekBar.progress}/50"))
 
+        incrementVotesMade()
+
         Toast.makeText(this@VotingPage, "You have voted for ${team.name}", Toast.LENGTH_SHORT)
         startActivity(Intent(this@VotingPage, PageSelection::class.java))
+    }
+
+    private fun incrementVotesMade(){
+        val votesRef = FirebaseDatabase.getInstance().getReference("/votesmade")
+        var votes: Int
+
+        votesRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+
+                votes = p0.getValue(Int::class.java)!!
+                votesRef.setValue(votes + 1)
+
+            }
+        })
     }
 
 }

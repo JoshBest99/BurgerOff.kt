@@ -18,7 +18,7 @@ import inc.josh.burgeroff.R
 
 class TeamListAdapter (val context : Context, val teamList: ArrayList<Team>): RecyclerView.Adapter<UserViewHolder>(){
 
-    private val uiViewController = UIViewController()
+    private val uiViewController = UIViewController(context)
 
     override fun getItemCount(): Int {
         return teamList.size
@@ -39,12 +39,6 @@ class TeamListAdapter (val context : Context, val teamList: ArrayList<Team>): Re
         Glide.with(context).load(team.members!![0].profileImageUrl).into(holder.view.iv_profile)
 
         if(team.members!!.size == 2){
-//
-//            val scale = context.resources.displayMetrics.density
-//
-//            val layoutParams = LinearLayout.LayoutParams((35 * scale).toInt(), (35 * scale).toInt())
-//            holder.view.iv_profile.layoutParams = layoutParams
-//            holder.view.iv_profile_two.layoutParams = layoutParams
 
             holder.view.iv_profile_two.visibility = View.VISIBLE
 
@@ -75,12 +69,11 @@ class TeamListAdapter (val context : Context, val teamList: ArrayList<Team>): Re
         }
 
         for (i in 0 until team.members!!.size){
+
             if(team.members!![i].uid.equals(FirebaseAuth.getInstance().uid)){
                 if(isClickEvent)uiViewController.createDialogWithMessage("You can't vote for your own team!")
                 return false
             }
-
-
 
         }
 

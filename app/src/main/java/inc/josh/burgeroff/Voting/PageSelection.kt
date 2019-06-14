@@ -18,15 +18,12 @@ import inc.josh.burgeroff.Voting.Admin.AdminWinners
 class PageSelection : AppCompatActivity(){
 
     private val context = this
-    private var adminEnabled = false
+    private var votesDone = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_page_selection)
-
-        recyclerView.layoutManager = LinearLayoutManager(this)
-
-        getTeamList()
+        init()
 
         tv_profile.setOnClickListener {
 
@@ -35,15 +32,23 @@ class PageSelection : AppCompatActivity(){
         }
 
         tv_refresh.setOnClickListener {
-            getTeamList()
+            init()
         }
 
         titleText.setOnClickListener {
-            if(adminEnabled){
+            if(votesDone){
                 startActivity(Intent(this@PageSelection, AdminWinners::class.java))
             }
         }
 
+    }
+
+    private fun init(){
+
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        getTeamList()
+        checkIfVotesAreDone()
+        
     }
 
     private fun getTeamList(){
@@ -68,7 +73,6 @@ class PageSelection : AppCompatActivity(){
                    val team = it.getValue(Team::class.java)
                    if(team != null){
                        teamList.add(team)
-                       //if(user.username.equals("adminready")) adminEnabled = true
                    }
                }
 
@@ -79,5 +83,46 @@ class PageSelection : AppCompatActivity(){
             }
         })
 
+    }
+
+    private fun checkIfVotesAreDone(){
+
+        val votesRef = FirebaseDatabase.getInstance().getReference("/votesmade")
+        var votesMade: Int
+
+        votesRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+
+                votesMade = p0.getValue(Int::class.java)!!
+                getVotesNeeded(votesMade)
+            }
+        })
+
+    }
+
+    private fun getVotesNeeded(votesMade: Int){
+
+        val votesRef = FirebaseDatabase.getInstance().getReference("/votesneeded")
+        var votesNeeded: Int
+
+        votesRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+
+                votesNeeded = p0.getValue(Int::class.java)!!
+
+                if(votesNeeded == votesMade){
+                    votesDone = true
+                }
+
+            }
+        })
     }
 }

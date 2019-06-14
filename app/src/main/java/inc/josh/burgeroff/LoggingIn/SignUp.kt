@@ -152,6 +152,7 @@ class SignUp : AppCompatActivity() {
                 Log.d(TAG, "User Failed, ${it.message.toString()}")
             }
     }
+
 }
 
 

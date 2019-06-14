@@ -18,7 +18,6 @@ import kotlinx.android.synthetic.main.activity_team_options.*
 
 class TeamOptions: AppCompatActivity(){
 
-    private var isCooking = false
     private lateinit var user: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +26,6 @@ class TeamOptions: AppCompatActivity(){
         getCurrentUser()
 
         btn_cooking_yes.setOnClickListener {
-            isCooking = true
             changeTeamChoiceUI()
         }
 
@@ -55,6 +53,8 @@ class TeamOptions: AppCompatActivity(){
         btn_cooking_no.visibility = View.GONE
 
         tv_title.text = "Do you want to create or join a team?"
+
+        incrementVotesNeeded()
     }
 
     private fun getCurrentUser() {
@@ -89,6 +89,25 @@ class TeamOptions: AppCompatActivity(){
             }
 
     }
+
+    private fun incrementVotesNeeded(){
+        val votesRef = FirebaseDatabase.getInstance().getReference("/votesneeded")
+        var votes: Int
+
+        votesRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+
+                votes = p0.getValue(Int::class.java)!!
+                votesRef.setValue(votes + 1)
+
+            }
+        })
+    }
+
 
 
 }
