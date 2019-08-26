@@ -1,7 +1,6 @@
 package inc.josh.burgeroff.Voting.Admin
 
 import android.app.ProgressDialog
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -10,36 +9,21 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import inc.josh.burgeroff.DataModels.User
+import inc.josh.burgeroff.DataModels.Team
 import inc.josh.burgeroff.R
-import inc.josh.burgeroff.Voting.PageSelection
-import kotlinx.android.synthetic.main.activity_page_selection.*
+import kotlinx.android.synthetic.main.activity_overall_winners.*
 
 class AdminList : AppCompatActivity(){
-    private val context = this
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_page_selection)
+        setContentView(R.layout.activity_overall_winners)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
-
         getUserList()
 
-        tv_profile.setOnClickListener {
-
-            startActivity(Intent(this@AdminList, PageSelection::class.java))
-
-        }
-
-        tv_refresh.setOnClickListener {
-            getUserList()
-        }
-
-        titleText.text = "Administration"
-
-        titleText.setOnClickListener {
-            startActivity(Intent(this@AdminList, AdminWinners::class.java))
+        tv_back.setOnClickListener {
+            onBackPressed()
         }
 
     }
@@ -52,8 +36,8 @@ class AdminList : AppCompatActivity(){
             progressDialog.show()
         }
 
-        val ref = FirebaseDatabase.getInstance().getReference("/users")
-        var userList : ArrayList<User> = ArrayList()
+        val ref = FirebaseDatabase.getInstance().getReference("/teams")
+        var teams = ArrayList<Team>()
 
         ref.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
@@ -63,16 +47,15 @@ class AdminList : AppCompatActivity(){
             override fun onDataChange(p0: DataSnapshot) {
                 p0.children.forEach {
                     Log.d("MainAct", it.toString())
-                    val user = it.getValue(User::class.java)
-                    if(user != null){
-                        userList.add(user)
+                    val team = it.getValue(Team::class.java)
+                    if(team != null){
+                        teams.add(team)
                     }
-
                 }
 
                 runOnUiThread {
                     progressDialog.cancel()
-                    recyclerView.adapter = AdminAdapter(context, userList)
+                    recyclerView.adapter = AdminAdapter(this@AdminList, teams)
                 }
             }
         })

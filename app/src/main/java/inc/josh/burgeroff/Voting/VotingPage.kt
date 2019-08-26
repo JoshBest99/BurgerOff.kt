@@ -80,10 +80,10 @@ class VotingPage : AppCompatActivity() {
             }
         })
 
-        backButton.setOnClickListener {
-            startActivity(Intent(this@VotingPage, PageSelection::class.java))
+        tv_back.setOnClickListener {
+            onBackPressed()
         }
-            //TODO Dont set, just update will break if multi people doing it
+
         submitButton.setOnClickListener {
             submitButton.isEnabled = false
             getUpdatedVotes()

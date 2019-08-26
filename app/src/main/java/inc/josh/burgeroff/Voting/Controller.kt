@@ -4,81 +4,83 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Looper
+import inc.josh.burgeroff.DataModels.Team
 import inc.josh.burgeroff.DataModels.User
 
 class Controller{
 
-    fun getTopTotalPoints(users : ArrayList<User>): User{
+    fun getTopTotalPoints(teams : ArrayList<Team>): Team{
 
-        var endUser: User = User()
+        var winningTeam = Team()
 
-//        for ((index, user: User) in users.withIndex()){
-//
-//            if(index == 0){
-//                endUser = user
-//            } else {
-//                if((user.ratings!!.appearance!! + user.ratings!!.pattyTaste!! + user.ratings!!.burgerTaste!!)
-//                    > (endUser.ratings!!.appearance!! + endUser.ratings!!.pattyTaste!! + endUser.ratings!!.burgerTaste!!)){
-//                    endUser = user
-//                }
-//            }
-//        }
+        for (i in 0 until teams.size){
+            if (i == 0) {
+                winningTeam = teams[i]
+            } else {
+                val winningTeamScore = winningTeam.score!!
+                val winningTeamScoreTotal = (winningTeamScore.appearance!!.toInt() + winningTeamScore.pattyTaste!!.toInt() + winningTeamScore.burgerTaste!!.toInt())
 
-        return endUser
+                val currentTeamScore = teams[i].score!!
+                val currentTeamScoreTotal = (currentTeamScore.appearance!!.toInt() + currentTeamScore.pattyTaste!!.toInt() + currentTeamScore.burgerTaste!!.toInt())
+
+                if(currentTeamScoreTotal > winningTeamScoreTotal){
+                    winningTeam = teams[i]
+                }
+            }
+        }
+
+        return winningTeam
     }
 
-    fun getTopTotalPatty(users : ArrayList<User>): User{
+    fun getTopTotalPatty(teams : ArrayList<Team>): Team{
 
-        var endUser: User = User()
+        var winningTeam = Team()
 
-//        for ((index, user: User) in users.withIndex()){
-//
-//            if(index == 0){
-//                endUser = user
-//            } else {
-//                if(user.ratings!!.pattyTaste!! > endUser.ratings!!.pattyTaste!!){
-//                    endUser = user
-//                }
-//            }
-//        }
+        for (i in 0 until teams.size){
+            if (i == 0) {
+                winningTeam = teams[i]
+            } else {
+                if(teams[i].score!!.pattyTaste!!.toInt() > winningTeam.score!!.pattyTaste!!.toInt()){
+                    winningTeam = teams[i]
+                }
+            }
+        }
 
-        return endUser
+        return winningTeam
     }
 
-    fun getTopTotalBurger(users : ArrayList<User>): User{
+    fun getTopTotalBurger(teams : ArrayList<Team>): Team{
 
-        var endUser: User = User()
-//
-//        for ((index, user: User) in users.withIndex()){
-//
-//            if(index == 0){
-//                endUser = user
-//            } else {
-//                if(user.ratings!!.burgerTaste!! > endUser.ratings!!.burgerTaste!!){
-//                    endUser = user
-//                }
-//            }
-//        }
+        var winningTeam = Team()
 
-        return endUser
+        for (i in 0 until teams.size){
+            if (i == 0) {
+                winningTeam = teams[i]
+            } else {
+                if(teams[i].score!!.burgerTaste!!.toInt() > winningTeam.score!!.burgerTaste!!.toInt()){
+                    winningTeam = teams[i]
+                }
+            }
+        }
+
+        return winningTeam
     }
 
-    fun getTopTotalAppearance(users : ArrayList<User>): User{
+    fun getTopTotalAppearance(teams : ArrayList<Team>): Team{
 
-        var endUser: User = User()
+        var winningTeam = Team()
 
-//        for ((index, user: User) in users.withIndex()){
-//
-//            if(index == 0){
-//                endUser = user
-//            } else {
-//                if(user.ratings!!.appearance!! > endUser.ratings!!.appearance!!){
-//                    endUser = user
-//                }
-//            }
-//        }
+        for (i in 0 until teams.size){
+            if (i == 0) {
+                winningTeam = teams[i]
+            } else {
+                if(teams[i].score!!.appearance!!.toInt() > winningTeam.score!!.appearance!!.toInt()){
+                    winningTeam = teams[i]
+                }
+            }
+        }
 
-        return endUser
+        return winningTeam
     }
 
     fun showDialogWithMessage(message: String, context : Context) {
