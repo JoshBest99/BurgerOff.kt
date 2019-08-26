@@ -85,6 +85,7 @@ class VotingPage : AppCompatActivity() {
         }
             //TODO Dont set, just update will break if multi people doing it
         submitButton.setOnClickListener {
+            submitButton.isEnabled = false
             getUpdatedVotes()
         }
 
