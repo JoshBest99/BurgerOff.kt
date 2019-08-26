@@ -1,5 +1,9 @@
 package inc.josh.burgeroff.Voting
 
+import android.app.AlertDialog
+import android.content.Context
+import android.content.DialogInterface
+import android.os.Looper
 import inc.josh.burgeroff.DataModels.User
 
 class Controller{
@@ -76,5 +80,22 @@ class Controller{
 
         return endUser
     }
+
+    fun showDialogWithMessage(message: String, context : Context) {
+        if(Looper.myLooper() == null){
+            Looper.prepare()
+        }
+        val dialogBuilder = AlertDialog.Builder(context)
+
+        dialogBuilder.setMessage(message)
+        dialogBuilder.setCancelable(true)
+
+        dialogBuilder.setPositiveButton(
+            "Okay",
+            DialogInterface.OnClickListener { dialog, id -> dialog.cancel() })
+        val alert = dialogBuilder.create()
+        alert.show()
+    }
+
 
 }

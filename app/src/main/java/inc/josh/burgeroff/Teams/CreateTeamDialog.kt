@@ -13,6 +13,7 @@ import inc.josh.burgeroff.DataModels.Score
 import inc.josh.burgeroff.DataModels.Team
 import inc.josh.burgeroff.DataModels.User
 import inc.josh.burgeroff.R
+import inc.josh.burgeroff.Voting.Controller
 import inc.josh.burgeroff.Voting.PageSelection
 import kotlinx.android.synthetic.main.dialog_create_team.*
 import java.util.*
@@ -20,16 +21,26 @@ import kotlin.collections.ArrayList
 
 class CreateTeamDialog (context: Context, private val currentUser: User) : Dialog(context){
 
+    private val activityContext = context
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dialog_create_team)
 
         btn_create.setOnClickListener {
-            if(et_teamname.text.trim().isNotEmpty()) {
-                createTeam(currentUser)
-            }
+            createBtnPressed()
         }
 
+    }
+
+    private fun createBtnPressed(){
+
+        if(et_teamname.text.trim().length > 22) {
+            Controller().showDialogWithMessage("The name for your team is too long.", activityContext)
+            return
+        }
+
+        createTeam(currentUser)
     }
 
     private fun createTeam(user: User){

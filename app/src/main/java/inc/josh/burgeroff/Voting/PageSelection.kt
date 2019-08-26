@@ -48,7 +48,7 @@ class PageSelection : AppCompatActivity(){
         recyclerView.layoutManager = LinearLayoutManager(this)
         getTeamList()
         checkIfVotesAreDone()
-        
+
     }
 
     private fun getTeamList(){
